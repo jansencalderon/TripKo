@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/trip_finder"
+            android:checked="true"
+            android:icon="@drawable/ic_search"
+            android:title="@string/trip_finder" />
+        <item
+            android:id="@+id/my_trips"
+            android:checkable="false"
+            android:icon="@drawable/ic_bus_line_2"
+            android:title="@string/my_trips" />
+        <item
+            android:id="@+id/team"
+            android:checkable="false"
+            android:icon="@drawable/ic_info"
+            android:title="About Team" />
+        <item
+            android:id="@+id/about_team"
+            android:checkable="false"
+            android:icon="@drawable/ic_info"
+            android:title="About App" />
+        <item
+            android:id="@+id/faqs"
+            android:checkable="false"
+            android:icon="@drawable/ic_info"
+            android:title="FAQs" />
+        <item
+            android:id="@+id/logout"
+            android:checkable="false"
+            android:icon="@drawable/ic_exit"
+            android:title="@string/log_out" />
+
+    </group>
+</menu>
