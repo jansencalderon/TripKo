@@ -26,8 +26,7 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginView> {
             App.getInstance().getApiInterface().login(email, password, Constants.APPJSON)
                     .enqueue(new Callback<LoginResponse>() {
                         @Override
-                        public void onResponse(Call<LoginResponse> call,
-                                               final Response<LoginResponse> response) {
+                        public void onResponse(Call<LoginResponse> call, final Response<LoginResponse> response) {
                             getView().stopLoading();
                             if (response.isSuccessful()) {
                                 try {

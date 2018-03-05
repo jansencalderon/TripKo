@@ -104,6 +104,7 @@
                     android:layout_marginTop="20dp"
                     android:background="?selectableItemBackground"
                     android:clickable="true"
+                    android:visibility="gone"
                     android:onClick="@{()-> view.onForgotPasswordButtonClicked()}"
                     android:text="Forgot Password?"
                     android:textColor="@color/white" />

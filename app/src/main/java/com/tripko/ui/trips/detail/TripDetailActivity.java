@@ -86,7 +86,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
 
         switch (reservation.getStatus()) {
             case "R":
-                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.greenSuccess));
+                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.orange));
                 break;
             case "P":
                 binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.blue));
@@ -159,12 +159,20 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                userImage = imageFile;
-                Glide.with(TripDetailActivity.this)
-                        .load(userImage)
-                        .centerCrop()
-                        .error(R.drawable.ic_user)
-                        .into(dialogBinding.imageView);
+                if(imageFile.getPath().substring(imageFile.getPath().lastIndexOf(".")).equals(".jpg")
+                        ||imageFile.getPath().substring(imageFile.getPath().lastIndexOf(".")).equals(".jpeg")){
+
+                    userImage = imageFile;
+                    Glide.with(TripDetailActivity.this)
+                            .load(userImage)
+                            .centerCrop()
+                            .error(R.drawable.ic_user)
+                            .into(dialogBinding.imageView);
+                }else {
+                    showAlert("Only JPEG is allowed");
+                }
+
+
             }
 
         });
