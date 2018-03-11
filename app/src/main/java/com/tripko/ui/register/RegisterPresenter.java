@@ -37,7 +37,9 @@ public class RegisterPresenter extends MvpNullObjectBasePresenter<RegisterView> 
             getView().showAlert("Fill-up all fields");
         } else if (!password.contentEquals(confirmPassword)) {
             getView().showAlert("Password does not match");
-        } else {
+        } else if (password.length() > 5){
+            getView().showAlert("Password must be minimum of 5 characters");
+        }else {
             getView().startLoading();
             App.getInstance().getApiInterface().register(email, password, firstName, lastName, contact, birthday, address, "M", "Middle", Constants.APPJSON)
                     .enqueue(new Callback<BasicResponse>() {

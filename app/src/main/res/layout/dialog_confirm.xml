@@ -3,6 +3,8 @@
 
     <data>
 
+        <import type="com.tripko.utils.DateTimeUtils" />
+
         <variable
             name="schedule"
             type="com.tripko.model.data.Schedule" />
@@ -13,162 +15,326 @@
         android:layout_height="wrap_content"
         android:minWidth="300dp"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="8dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Trip Confirmation"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:weightSum="100">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="30"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Route"
-                    android:padding="6dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:text="Trip Confirmation"
+                    android:padding="8dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text='@{schedule.bus.route}'
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:layout_marginTop="8dp"
+                    android:orientation="vertical"
+                    android:weightSum="100">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="4dp"
+                        android:weightSum="100">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="30"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="Route"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="Plate No."
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="Bus Type"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="Operator"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="Departure"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="70"
+                            android:orientation="vertical">
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text='@{schedule.bus.route}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text='@{schedule.bus.plateNo}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text='@{schedule.bus.classification}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="@{schedule.company.companyName}"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text='@{DateTimeUtils.toReadable(schedule.date) +` at `+ schedule.time}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Destination"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:weightSum="100">
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="20"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="6dp"
+                                    android:text="From"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:padding="6dp"
+                                    android:text="To"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="80"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="6dp"
+                                    android:text='@{schedule.destFrom.terminalName}'
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+                                <TextView
+                                    android:id="@+id/destTo"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:padding="6dp"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Mode of Payment"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/dialogMode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Passenger Type"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/dialogPassengerType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:padding="4dp"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Total Fare"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/dialogTotalFare"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="From"
-                    android:padding="6dp"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textStyle="bold" />
+                    android:gravity="center">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                    <CheckBox
+                        android:id="@+id/checkbox"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:id="@+id/terms_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Terms And Conditions"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:fontFamily="sans-serif-light"
-                    android:text='@{schedule.destFrom.terminalName}'
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:text="To"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textStyle="bold" />
+                    <Button
+                        android:id="@+id/cancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/rounded_button_gray"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="cancel"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:padding="6dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text='@{schedule.destTo.terminalName}'
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="6dp"
-                    android:layout_height="wrap_content"
-                    android:text="Operator"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="6dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text="@{schedule.company.companyName}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="6dp"
-                    android:layout_height="wrap_content"
-                    android:text="Departure"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:padding="6dp"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-light"
-                    android:text='@{schedule.date +` at `+ schedule.time}'
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-
+                    <Button
+                        android:id="@+id/confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="20dp"
+                        android:background="@drawable/rounded_button_accent"
+                        android:enabled="false"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="CONFIRM"
+                        android:textColor="@color/white" />
+                </LinearLayout>
             </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <CheckBox
-                android:id="@+id/checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/terms_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Terms And Conditions"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:background="@drawable/rounded_button_gray"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="cancel"
-                android:textColor="@color/white" />
-
-            <Button
-                android:enabled="false"
-                android:id="@+id/confirm"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="20dp"
-                android:background="@drawable/rounded_button_accent"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="CONFIRM"
-                android:textColor="@color/white" />
-        </LinearLayout>
+        </ScrollView>
     </LinearLayout>
-
 </layout>

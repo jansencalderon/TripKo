@@ -33,6 +33,8 @@ public class App extends Application {
                 .deleteRealmIfMigrationNeeded()
                 .build();
         Realm.setDefaultConfiguration(realmConfig);
+
+
     }
 
     public synchronized static App getInstance() {

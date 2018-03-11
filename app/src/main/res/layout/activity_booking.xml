@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.tripko.utils.DateTimeUtils" />
+
         <variable
             name="schedule"
             type="com.tripko.model.data.Schedule" />
@@ -40,11 +42,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="6dp"
-                    android:text="Trip Info"
-                    android:textSize="18sp"
+                    android:text="Schedule Info"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/colorPrimary"
-                    android:textStyle="bold" />
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,7 +76,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text="From"
+                            android:text="Plate No."
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textStyle="bold" />
 
@@ -80,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text="To"
+                            android:text="Bus Type"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textStyle="bold" />
 
@@ -108,11 +112,6 @@
                         android:layout_weight="70"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="6dp"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -125,14 +124,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text='@{schedule.destFrom.terminalName}'
+                            android:text='@{schedule.bus.plateNo}'
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text='@{schedule.destTo.terminalName}'
+                            android:text='@{schedule.bus.classification}'
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                         <TextView
@@ -146,10 +145,153 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="6dp"
-                            android:text='@{schedule.date +` at `+ schedule.time}'
+                            android:text='@{DateTimeUtils.toReadable(schedule.date) +` at `+ schedule.time}'
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Destination"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="10dp"
+                        android:weightSum="100">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="20"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="From"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text="To"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="80"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp"
+                                android:text='@{schedule.destFrom.terminalName}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:background="@drawable/bg_card_light_green"
+                                android:layout_height="wrap_content"
+                                android:padding="6dp">
+
+                                <android.support.v7.widget.AppCompatSpinner
+                                    android:id="@+id/spinnerDropOff"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:spinnerMode="dialog" />
+                            </FrameLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Mode of Payment"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:padding="6dp"
+                        android:background="@drawable/bg_card_light_green"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:spinnerMode="dialog" />
+
+                    </FrameLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_card"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:weightSum="100">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Passenger Type"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                        android:textStyle="bold" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="6dp"
+                        android:padding="6dp"
+                        android:background="@drawable/bg_card_light_green"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.AppCompatSpinner
+                            android:id="@+id/spinnerPassengerType"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:spinnerMode="dialog" />
+                    </FrameLayout>
                 </LinearLayout>
 
                 <TextView
@@ -188,30 +330,12 @@
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                     android:textColor="@color/colorPrimary" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="Mode of Payment"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textStyle="bold" />
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <android.support.v7.widget.AppCompatSpinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginTop="10dp" />
-                </FrameLayout>
 
                 <LinearLayout
                     android:id="@+id/seatsInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:visibility="gone">
 
@@ -241,7 +365,8 @@
                             android:text="Fare"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                             android:textColor="@color/white"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:visibility="gone" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -279,7 +404,8 @@
                             android:padding="6dp"
                             android:text="500"
                             android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/total"

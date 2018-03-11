@@ -3,6 +3,7 @@ package com.tripko.model.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -11,6 +12,25 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Schedule extends RealmObject{
+    public static final String SCHEDULE_ID = "schedule_id";
+    public static final String BUS_ID = "bus_id";
+    public static final String DESTINATION_FROM = "destination_from";
+    public static final String DESTINATION_TO = "destination_to";
+    public static final String USER_ID = "user_id";
+    public static final String COMPANY_ID = "company_id";
+    public static final String DRIVER_NAME = "driver_name";
+    public static final String SEAT_AVAILABLE = "seat_available";
+    public static final String DATE = "date";
+    public static final String TIME = "time";
+    public static final String FARE = "fare";
+    public static final String STATUS = "status";
+    public static final String DROP_OFF = "drop_off";
+    public static final String SEATS_TAKEN = "seats_taken";
+    public static final String COMPANY = "company";
+    public static final String USER = "user";
+    public static final String DEST_FROM = "dest_from";
+    public static final String DEST_TO = "dest_to";
+    public static final String BUS = "bus";
 
     @PrimaryKey
     @SerializedName("schedule_id")
@@ -64,6 +84,16 @@ public class Schedule extends RealmObject{
     @SerializedName("bus")
     @Expose
     private Bus bus;
+    @SerializedName("drop_off")
+    private RealmList<DropOff> dropOffRealmList;
+
+    public RealmList<DropOff> getDropOffRealmList() {
+        return dropOffRealmList;
+    }
+
+    public void setDropOffRealmList(RealmList<DropOff> dropOffRealmList) {
+        this.dropOffRealmList = dropOffRealmList;
+    }
 
     public Integer getScheduleId() {
         return scheduleId;

@@ -1,12 +1,16 @@
 package com.tripko.profile;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +34,8 @@ import java.util.Locale;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
 import pl.aprilapps.easyphotopicker.EasyImage;
+import pl.tajchert.nammu.Nammu;
+import pl.tajchert.nammu.PermissionCallback;
 
 /**
  * Created by Mark Jansen Calderon on 1/11/2017.
@@ -38,7 +44,7 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> implements ProfileView {
 
     private ActivityProfileBinding binding;
-    private int PICK_IMAGE_REQUEST = 1;
+    private int PICK_IMAGE_REQUEST = 0;
     private File userImage;
     private ProgressDialog progressDialog;
     private String TAG = ProfileActivity.class.getSimpleName();
@@ -50,10 +56,11 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter.onStart();
         setContentView(R.layout.activity_profile);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
         binding.setView(getMvpView());
+        presenter.onStart();
+        Nammu.init(this);
         binding.toolbar.setTitle("Profile");
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null)
@@ -70,6 +77,23 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Updating...");
         progressDialog.setCancelable(false);
+
+
+        int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            Nammu.askForPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, new PermissionCallback() {
+                @Override
+                public void permissionGranted() {
+                    //Nothing, this sample saves to Public gallery so it needs permission
+                }
+
+                @Override
+                public void permissionRefused() {
+                    finish();
+                }
+            });
+        }
+
 
         binding.changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,14 +130,19 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        Nammu.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+
+    @Override
     protected void onResume() {
         super.onResume();
-        if (binding.image != null)
-            Glide.with(this)
-                    .load(Constants.URL_IMAGE + user.getImage())
-                    .centerCrop()
-                    .placeholder(R.drawable.ic_user)
-                    .into(binding.image);
+        Glide.with(this)
+                .load(Constants.URL_IMAGE + user.getImage())
+                .error(R.drawable.ic_user)
+                .into(binding.userImage);
     }
 
     /***
@@ -193,12 +222,12 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
             dialogUpdateProfilePic.setContentView(updateProfilePicBinding.getRoot());
         }
 
-        Glide.with(this)
+        /*Glide.with(this)
                 .load(Constants.URL_IMAGE + user.getImage())
                 .centerCrop()
                 .error(R.drawable.ic_user)
                 .placeholder(R.drawable.ic_user)
-                .into(updateProfilePicBinding.userImage);
+                .into(updateProfilePicBinding.userImage);*/
         updateProfilePicBinding.userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -233,9 +262,7 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
         Glide.with(this)
                 .load(Constants.URL_IMAGE + user.getImage())
                 .centerCrop()
-                .error(R.drawable.ic_user)
-                .placeholder(R.drawable.ic_user)
-                .into(binding.image);
+                .into(binding.userImage);
     }
 
     @Override
@@ -266,11 +293,10 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
                 userImage = imageFile;
+                Log.d(TAG, "image: " + userImage.getAbsolutePath());
                 Glide.with(ProfileActivity.this)
-                        .load(userImage)
+                        .load(userImage.getPath())
                         .centerCrop()
-                        .error(R.drawable.ic_user)
-                        .placeholder(R.drawable.ic_user)
                         .into(updateProfilePicBinding.userImage);
             }
 

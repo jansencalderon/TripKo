@@ -22,7 +22,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:navigationIcon="@drawable/ic_arrow_back_primary"
                 app:title="Register"
                 app:titleTextColor="@color/colorPrimaryDark" />
 
@@ -79,6 +78,13 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:padding="6dp"
+                    android:text="*Password must have at least 5 characters"
+                    android:textSize="12sp" />
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
@@ -130,8 +136,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/group_row"
-                    android:hint="@string/contact"
+                    android:hint="Cellphone Number"
                     android:inputType="phone"
+                    android:maxLength="11"
+                    android:maxEms="11"
                     android:padding="8dp"
                     android:textSize="14sp" />
 

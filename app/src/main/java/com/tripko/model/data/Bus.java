@@ -19,9 +19,6 @@ public class Bus extends RealmObject{
     @SerializedName("company_id")
     @Expose
     private Integer companyId;
-    @SerializedName("classification_id")
-    @Expose
-    private Integer classificationId;
     @SerializedName("plate_no")
     @Expose
     private String plateNo;
@@ -31,12 +28,10 @@ public class Bus extends RealmObject{
     @SerializedName("total_seats")
     @Expose
     private Integer totalSeats;
-    @SerializedName("classification_name")
-    @Expose
-    private String classificationName;
     @SerializedName("classification")
     @Expose
-    private Classification classification;
+    private String classification;
+
 
     public Integer getBusId() {
         return busId;
@@ -52,14 +47,6 @@ public class Bus extends RealmObject{
 
     public void setCompanyId(Integer companyId) {
         this.companyId = companyId;
-    }
-
-    public Integer getClassificationId() {
-        return classificationId;
-    }
-
-    public void setClassificationId(Integer classificationId) {
-        this.classificationId = classificationId;
     }
 
     public String getPlateNo() {
@@ -86,20 +73,11 @@ public class Bus extends RealmObject{
         this.totalSeats = totalSeats;
     }
 
-    public String getClassificationName() {
-        return classificationName;
-    }
-
-    public void setClassificationName(String classificationName) {
-        this.classificationName = classificationName;
-    }
-
-    public Classification getClassification() {
+    public String getClassification() {
         return classification;
     }
 
-    public void setClassification(Classification classification) {
+    public void setClassification(String classification) {
         this.classification = classification;
     }
-
 }

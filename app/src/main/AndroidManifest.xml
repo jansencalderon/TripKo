@@ -3,6 +3,8 @@
     package="com.tripko">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.App"
@@ -26,7 +28,8 @@
             android:name=".ui.trips.TripsActivity"
             android:launchMode="singleTask" />
         <activity android:name=".ui.schedule.ScheduleActivity" />
-        <activity android:name=".ui.schedule.seat.SeatSelectionActivity" />
+        <activity android:name=".ui.schedule.details.seat.ActivitySeatSelectionRegular" />
+        <activity android:name=".ui.schedule.details.seat.ActivitySeatSelectionFirstClass" />
         <activity android:name=".ui.schedule.details.BookingActivity" />
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".ui.tripStatus.TripStatusActivity" />

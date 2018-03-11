@@ -1,4 +1,4 @@
-package com.tripko.ui.schedule.seat;
+package com.tripko.ui.schedule.details.seat;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.tripko.R;
 import com.tripko.app.Constants;
-import com.tripko.databinding.ActivitySeatSelectionBinding;
+import com.tripko.databinding.ActivitySeatSelectionFirstClassBinding;
 import com.tripko.model.data.Schedule;
 import com.tripko.model.temp_data.TempReservation;
 
@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSelectionPresenter> implements SeatSelectionView, View.OnClickListener {
+public class ActivitySeatSelectionFirstClass extends MvpActivity<SeatSelectionView, SeatSelectionPresenter> implements SeatSelectionView, View.OnClickListener {
 
-    ActivitySeatSelectionBinding binding;
-    private String TAG = SeatSelectionActivity.class.getSimpleName();
+    ActivitySeatSelectionFirstClassBinding binding;
+    private String TAG = ActivitySeatSelectionFirstClass.class.getSimpleName();
     private ArrayList<TextView> textViewArrayList = new ArrayList<>();
     private ArrayList<TextView> seats = new ArrayList<>();
     private int scheduleId;
@@ -34,7 +34,7 @@ public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter.onStart();
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_seat_selection);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_seat_selection_first_class);
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -118,17 +118,18 @@ public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSe
                 if (textView != null) {
                     if (seats.contains(textView)) {
                         //showAlert("Removed " + textView.getText());
-                        textView.setBackgroundColor(ContextCompat.getColor(SeatSelectionActivity.this, R.color.colorPrimary));
+                        textView.setBackgroundColor(ContextCompat.getColor(ActivitySeatSelectionFirstClass.this, R.color.colorPrimary));
                         seats.remove(textView);
                     } else {
                         //oast.makeText(this, textView.getText() + " selected", Toast.LENGTH_SHORT).show();
-                        textView.setBackgroundColor(ContextCompat.getColor(SeatSelectionActivity.this, R.color.greenSuccess));
+                        textView.setBackgroundColor(ContextCompat.getColor(ActivitySeatSelectionFirstClass.this, R.color.greenSuccess));
                         seats.add(textView);
                     }
                     binding.seatSelected.setText(seats.size() + " seats selected");
                 }
             }
         }
+
 
         if (schedule.getSeats_taken() != null) {
             List<String> myList2 = new ArrayList<>(Arrays.asList(schedule.getSeats_taken().split(",")));
@@ -140,7 +141,7 @@ public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSe
                         textView = textViewArrayList.get(j);
                 }
                 if (textView != null) {
-                    textView.setBackgroundColor(ContextCompat.getColor(SeatSelectionActivity.this, R.color.redFailed));
+                    textView.setBackgroundColor(ContextCompat.getColor(ActivitySeatSelectionFirstClass.this, R.color.redFailed));
                     textView.setClickable(false);
                 }
             }
@@ -184,7 +185,7 @@ public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSe
         if (textView != null) {
             if (seats.contains(textView)) {
                 //showAlert("Removed " + textView.getText());
-                textView.setBackgroundColor(ContextCompat.getColor(SeatSelectionActivity.this, R.color.colorPrimary));
+                textView.setBackgroundColor(ContextCompat.getColor(ActivitySeatSelectionFirstClass.this, R.color.colorPrimary));
                 seats.remove(textView);
             } else {
                 if (seats.size() == 3) {
@@ -192,7 +193,7 @@ public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSe
                     return;
                 }
                 //oast.makeText(this, textView.getText() + " selected", Toast.LENGTH_SHORT).show();
-                textView.setBackgroundColor(ContextCompat.getColor(SeatSelectionActivity.this, R.color.greenSuccess));
+                textView.setBackgroundColor(ContextCompat.getColor(ActivitySeatSelectionFirstClass.this, R.color.greenSuccess));
                 seats.add(textView);
             }
             binding.seatSelected.setText(seats.size() + " seats selected");
@@ -211,7 +212,7 @@ public class SeatSelectionActivity extends MvpActivity<SeatSelectionView, SeatSe
             case android.R.id.home:
                 onBackPressed();
                 return true;
-            case R.id.action_dono:
+            case R.id.action_done:
                 if (seats.size() > 0) {
                     presenter.saveData(seats, scheduleId);
                     finish();

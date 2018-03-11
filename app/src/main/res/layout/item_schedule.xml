@@ -38,17 +38,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:padding="6dp"
                     android:layout_gravity="center"
                     android:text="@{item.company.companyName}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
                     android:textColor="@color/white" />
 
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_bus_line"
+                    android:tint="@color/white" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="16dp">
+                    android:padding="6dp">
 
                     <TextView
                         android:layout_width="0dp"
@@ -114,6 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="top|end"
                 android:background="@color/colorAccent"
+                android:visibility="gone"
                 android:padding="10dp"
                 android:text='@{`PHP ` + item.fare}'
                 android:textAppearance="@style/TextAppearance.AppCompat.Subhead"

@@ -1,4 +1,4 @@
-package com.tripko.ui.schedule.seat;
+package com.tripko.ui.schedule.details.seat;
 
 import com.hannesdorfmann.mosby.mvp.MvpView;
 

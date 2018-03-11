@@ -1,11 +1,13 @@
 package com.tripko.ui.trips;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -44,7 +46,6 @@ public class TripsActivity extends MvpActivity<TripsView, TripsPresenter> implem
         adapter = new TripsAdapter(getMvpView());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerView.setAdapter(adapter);
-
 
     }
 
@@ -106,11 +107,23 @@ public class TripsActivity extends MvpActivity<TripsView, TripsPresenter> implem
 
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_trips, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.action_help:
+                Dialog dialog = new Dialog(this);
+                dialog.setContentView(R.layout.dialog_reservation_legend);
+                dialog.show();
+
             default:
                 return super.onOptionsItemSelected(item);
         }

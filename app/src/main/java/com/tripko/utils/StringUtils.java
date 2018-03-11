@@ -38,9 +38,9 @@ public class StringUtils {
     public static String toStatus(String s) {
         switch (s) {
             case "R":
-                return "Waiting for Deposit Slip";
+                return "Reserved";
             case "P":
-                return "Pending Approval";
+                return "Pending";
             case "A":
                 return "Approved";
             case "D":

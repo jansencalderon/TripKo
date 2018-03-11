@@ -1,4 +1,4 @@
-package com.tripko.ui.schedule.seat;
+package com.tripko.ui.schedule.details.seat;
 
 import android.support.annotation.NonNull;
 import android.widget.TextView;

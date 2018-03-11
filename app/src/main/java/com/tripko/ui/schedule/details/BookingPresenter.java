@@ -30,6 +30,10 @@ class BookingPresenter extends MvpNullObjectBasePresenter<BookingView> {
                 realm.delete(TempReservation.class);
             }
         });
+
+
+        //populate
+
 /*
 
         tempReservation = realm.where(TempReservation.class).findFirstAsync();
@@ -63,7 +67,7 @@ class BookingPresenter extends MvpNullObjectBasePresenter<BookingView> {
         }
     }
 
-    public void onReserve(int scheduleId, String actualSeats, int numberOfSeats, String modeOfPayment) {
+    public void onReserve(int scheduleId, String actualSeats, int numberOfSeats, String modeOfPayment, int dropOffId, String passengerType, String totalFare) {
         getView().startLoading();
         App.getInstance().getApiInterface().addReservation(
                 Constants.BEARER + App.getUser().getApiToken(),
@@ -71,6 +75,9 @@ class BookingPresenter extends MvpNullObjectBasePresenter<BookingView> {
                 actualSeats,
                 numberOfSeats,
                 modeOfPayment,
+                dropOffId,
+                passengerType,
+                totalFare,
                 Constants.APPJSON).enqueue(new Callback<BasicResponse>() {
             @Override
             public void onResponse(Call<BasicResponse> call, Response<BasicResponse> response) {

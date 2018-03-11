@@ -38,18 +38,17 @@
                 android:orientation="vertical"
                 android:padding="20dp">
 
+
+
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:id="@+id/userImage"
                     android:layout_gravity="center"
+                    android:layout_width="120dp"
                     android:onClick="@{()->view.onPhotoClicked()}"
-                    android:scaleType="centerCrop"
-                    app:civ_border_color="@color/darkGray"
-                    app:civ_border_width="1dp"
-                    app:civ_circle_background_color="@color/gray" />
-
-
+                    android:layout_height="120dp"
+                    app:civ_circle_background_color="@color/darkGray"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="30dp" />
             </LinearLayout>
 
 
@@ -92,7 +91,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:hint="Contact"
+                    android:hint="Cellphone Number"
                     android:inputType="phone"
                     android:text="@{user.contactNo}"
                     android:textSize="14sp" />

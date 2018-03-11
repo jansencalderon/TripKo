@@ -21,11 +21,12 @@ import com.tripko.R;
 import com.tripko.app.Constants;
 import com.tripko.databinding.ActivityBookingBinding;
 import com.tripko.databinding.DialogConfirmBinding;
+import com.tripko.model.data.DropOff;
 import com.tripko.model.data.Schedule;
 import com.tripko.model.temp_data.TempReservation;
 import com.tripko.ui.main.MainActivity;
-import com.tripko.ui.schedule.seat.SeatSelectionActivity;
-import com.tripko.utils.StringUtils;
+import com.tripko.ui.schedule.details.seat.ActivitySeatSelectionFirstClass;
+import com.tripko.ui.schedule.details.seat.ActivitySeatSelectionRegular;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,9 +37,13 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
     private ActivityBookingBinding binding;
     private Schedule schedule;
     private String modeOfPayment;
+    private String selectedPassengerType;
     private int numberOfSeats;
     private String actualSeats;
     private ProgressDialog progressDialog;
+    private DropOff selectedDropOff;
+    private double passengerTypeDiscount;
+    private double totalFare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +83,65 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
             }
         });
 
+
+        //drop off
+        Spinner dropOffSpinner = binding.spinnerDropOff;
+        final ArrayAdapter<DropOff> dataAdapter = new ArrayAdapter<DropOff>(getSupportActionBar().getThemedContext(), R.layout.spinner_list_style, schedule.getDropOffRealmList());
+        dataAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        dropOffSpinner.setAdapter(dataAdapter);
+        dropOffSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                DropOff dropOff = dataAdapter.getItem(position);
+                selectedDropOff = dropOff;
+                onResume();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        //passengerType
+        Spinner passengerTypeSpinner = binding.spinnerPassengerType;
+        final String[] types = new String[]{
+                "Adult",
+                "Children",
+                "Senior Citizen",
+                "Student"
+        };
+
+        ArrayAdapter<String> adapterPassengerType = new ArrayAdapter<String>(getSupportActionBar().getThemedContext(), R.layout.spinner_list_style, types);
+        adapterPassengerType.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        passengerTypeSpinner.setAdapter(adapterPassengerType);
+        passengerTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (types[position].equals("Adult")) {
+                    passengerTypeDiscount = 0;
+                } else {
+                    passengerTypeDiscount = 0.20;
+                }
+                selectedPassengerType = types[position];
+                onResume();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         binding.selectSeats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(BookingActivity.this, SeatSelectionActivity.class);
+                Intent i;
+                if (schedule.getBus().getClassification().trim().equals("STANDARD")) {
+                    i = new Intent(BookingActivity.this, ActivitySeatSelectionRegular.class);
+                } else {
+                    i = new Intent(BookingActivity.this, ActivitySeatSelectionFirstClass.class);
+                }
                 if (!binding.seats.getText().toString().equals("SEATS")) {
                     i.putExtra(Constants.DATA, 0);
                 }
@@ -97,6 +157,8 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
                     showAlert("Please select mode of payment");
                 } else if (binding.seats.getText().toString().equals("SEATS")) {
                     showAlert("Please select at least one seat");
+                } else if (selectedDropOff == null) {
+                    showAlert("Please select your drop off");
                 } else {
                     showConfirmDialog();
                 }
@@ -118,6 +180,10 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
                 false);
         final Dialog dialog = new Dialog(this);
         dialogBinding.confirm.setEnabled(false);
+        dialogBinding.destTo.setText(selectedDropOff.getName());
+        dialogBinding.dialogMode.setText(modeOfPayment);
+        dialogBinding.dialogTotalFare.setText("PHP " + totalFare);
+        dialogBinding.dialogPassengerType.setText(selectedPassengerType);
         dialogBinding.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -137,7 +203,7 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                presenter.onReserve(schedule.getScheduleId(), actualSeats, numberOfSeats, modeOfPayment);
+                presenter.onReserve(schedule.getScheduleId(), actualSeats, numberOfSeats, modeOfPayment, selectedDropOff.getDropOffId(), selectedPassengerType, totalFare+"");
             }
         });
         dialogBinding.setSchedule(schedule);
@@ -180,11 +246,15 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
 
 
             binding.seatsInfo.setVisibility(View.VISIBLE);
-            binding.fare.setText(StringUtils.moneyFormat(schedule.getFare()));
+            float fare = Float.parseFloat(selectedDropOff.getFare());
+            binding.fare.setText("PHP " + fare);
             binding.seatsCount.setText(numberOfSeats + "");
             binding.seats.setText(actualSeats);
-            int totalFare = schedule.getFare() * numberOfSeats;
-            binding.total.setText(StringUtils.moneyFormat(totalFare));
+
+            //fare computation
+            double discount = (fare * numberOfSeats) * passengerTypeDiscount;
+            totalFare = (fare * numberOfSeats) - discount;
+            binding.total.setText("PHP " + totalFare);
         }
     }
 
@@ -208,7 +278,7 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
     public void reservationSuccess() {
         AlertDialog alertDialog = new AlertDialog.Builder(this).create();
         alertDialog.setTitle("Reservation Successful");
-        alertDialog.setMessage("Thank you for booking with us. You have 3 days to pay the tickets. Payments should be made through over the bank deposit.");
+        alertDialog.setMessage("Thank you for booking with us. Unpaid reservations will be voided 2 hours before the trip. Payments should be made through over the bank deposit.");
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {

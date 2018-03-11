@@ -54,7 +54,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text='@{`PHP `+ schedule.fare}'
+                            android:text='@{schedule.company.companyName}'
                             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                         <ImageView
@@ -134,6 +134,7 @@
                             android:layout_height="wrap_content"
                             android:padding="4dp"
                             android:text='60 max capacity'
+                            android:visibility="gone"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="@color/redFailed"
                             android:textStyle="bold" />
@@ -149,7 +150,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="4dp"
-                                android:text='Seats Taken'
+                                android:text='Pending Seat Reservations'
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
                             <android.support.v7.widget.RecyclerView
@@ -308,7 +309,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="4dp"
-                            android:text="@{schedule.bus.classificationName}"
+                            android:text="@{schedule.bus.classification}"
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="@color/darkGray" />
 

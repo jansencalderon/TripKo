@@ -91,6 +91,9 @@ public interface ApiInterface {
                                        @Field("seats_reserved") String seatsReserved,
                                        @Field("qty") int qty,
                                        @Field("mode_payment") String modeOfPayment,
+                                       @Field("drop_off_id") int dropOffId,
+                                       @Field("passenger_type") String passengerType,
+                                       @Field("total_fare") String totalFare,
                                        @Header(Constants.ACCEPT) String json);
 
 

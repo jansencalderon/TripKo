@@ -44,6 +44,51 @@ class MainPresenter extends MvpNullObjectBasePresenter<MainView> {
         });
 
 
+        //add bank accounts
+        /*realm.executeTransaction(new Realm.Transaction() {
+			@Override
+			public void execute(Realm realm) {
+				//victory
+				BankAccount bankAccount = new BankAccount();
+				bankAccount.setBankAccountId(5);
+				bankAccount.setBDO("1431328430");
+				bankAccount.setBPI("1236-6321-12");
+				bankAccount.setMetrobank("8426945124");
+				realm.copyToRealmOrUpdate(bankAccount);
+
+				//baliwag
+				BankAccount bankAccount2 = new BankAccount();
+				bankAccount2.setBankAccountId(6);
+				bankAccount2.setBDO("1431328431");
+				bankAccount2.setBPI("1236-6321-13");
+				bankAccount2.setMetrobank("8426945125");
+				realm.copyToRealmOrUpdate(bankAccount2);
+
+				//es transport
+				BankAccount bankAccount3 = new BankAccount();
+				bankAccount3.setBankAccountId(7);
+				bankAccount3.setBDO("1431328432");
+				bankAccount3.setBPI("1236-6321-14");
+				bankAccount3.setMetrobank("8426945126");
+				realm.copyToRealmOrUpdate(bankAccount3);
+
+				//five star
+				BankAccount bankAccount4 = new BankAccount();
+				bankAccount4.setBankAccountId(8);
+				bankAccount4.setBDO("1431328433");
+				bankAccount4.setBPI("1236-6321-15");
+				bankAccount4.setMetrobank("8426945127");
+				realm.copyToRealmOrUpdate(bankAccount4);
+
+				//joy bus
+				BankAccount bankAccount5 = new BankAccount();
+				bankAccount5.setBankAccountId(9);
+				bankAccount5.setBDO("1431328434");
+				bankAccount5.setBPI("1236-6321-16");
+				bankAccount5.setMetrobank("8426945128");
+				realm.copyToRealmOrUpdate(bankAccount5);
+			}
+		});*/
     }
 
     void getFilterData() {

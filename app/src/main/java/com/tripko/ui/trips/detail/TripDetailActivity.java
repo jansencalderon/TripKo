@@ -19,6 +19,7 @@ import com.tripko.R;
 import com.tripko.app.Constants;
 import com.tripko.databinding.ActivityTripDetailBinding;
 import com.tripko.databinding.DialogDepositSlipBinding;
+import com.tripko.model.data.BankAccount;
 import com.tripko.model.data.Reservation;
 
 import java.io.File;
@@ -37,7 +38,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
     private DialogDepositSlipBinding dialogBinding;
     private Dialog dialog;
     String TAG = TripDetailActivity.class.getSimpleName();
-
+    BankAccount bankAccount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +54,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
             finish();
 
         reservation = presenter.getReservation(id);
+        bankAccount = presenter.getBankAccount(reservation.getSchedule().getCompany().getCompanyId());
         setReservationData(reservation);
         binding.setView(getMvpView());
 
@@ -74,6 +76,74 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
+
+        switch (reservation.getSchedule().getCompany().getCompanyId()){
+            case 5:
+                switch (reservation.getModePayment()){
+                    case "BDO":
+                        binding.bankAccount.setText("Acct No. : 1431328430");
+                        break;
+                    case "BPI":
+                        binding.bankAccount.setText("Acct No. : 1236-6321-12");
+                        break;
+                    case "Metrobank":
+                        binding.bankAccount.setText("Acct No. : 8426945124");
+                        break;
+                }
+                break;
+            case 6:
+                switch (reservation.getModePayment()){
+                    case "BDO":
+                        binding.bankAccount.setText("Acct No. : 1431328431");
+                        break;
+                    case "BPI":
+                        binding.bankAccount.setText("Acct No. : 1236-6321-13");
+                        break;
+                    case "Metrobank":
+                        binding.bankAccount.setText("Acct No. : 8426945125");
+                        break;
+                }
+                break;
+            case 7:
+                switch (reservation.getModePayment()){
+                    case "BDO":
+                        binding.bankAccount.setText("Acct No. : 1431328432");
+                        break;
+                    case "BPI":
+                        binding.bankAccount.setText("Acct No. : 1236-6321-14");
+                        break;
+                    case "Metrobank":
+                        binding.bankAccount.setText("Acct No. : 8426945126");
+                        break;
+                }
+                break;
+            case 8:
+                switch (reservation.getModePayment()){
+                    case "BDO":
+                        binding.bankAccount.setText("Acct No. : 1431328433");
+                        break;
+                    case "BPI":
+                        binding.bankAccount.setText("Acct No. : 1236-6321-15");
+                        break;
+                    case "Metrobank":
+                        binding.bankAccount.setText("Acct No. : 8426945127");
+                        break;
+                }
+                break;
+            case 9:
+                switch (reservation.getModePayment()){
+                    case "BDO":
+                        binding.bankAccount.setText("Acct No. : 1431328434");
+                        break;
+                    case "BPI":
+                        binding.bankAccount.setText("Acct No. : 1236-6321-16");
+                        break;
+                    case "Metrobank":
+                        binding.bankAccount.setText("Acct No. : 8426945128");
+                        break;
+                }
+                break;
+        }
     }
 
     private void setReservationData(Reservation reservation) {
@@ -101,6 +171,8 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
                 binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.redFailed));
                 break;
         }
+
+
     }
 
     private void showDialogUploadPic() {

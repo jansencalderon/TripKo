@@ -59,10 +59,11 @@ public class LoginPresenter extends MvpNullObjectBasePresenter<LoginView> {
                                     getView().showAlert("Oops");
                                 }
                             } else {
-                                getView().showAlert(response.message() != null ? response.message()
+                               /* getView().showAlert(response.message() != null ? response.message()
                                         : "Unknown Error");
                                 getView().showAlert(response.body().getMessage() != null ? response.body().getMessage()
-                                        : "Oops");
+                                        : "Oops");*/
+                               getView().showAlert(Constants.OOPS);
                             }
                         }
 

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.tripko.ui.schedule.seat.SeatSelectionActivity">
+        tools:context=".ui.schedule.details.seat.ActivitySeatSelectionRegular">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -128,10 +128,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/blue"
+                        android:enabled="false"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="1C"
+                        android:text="DOOR"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -143,7 +144,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="1D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -199,7 +201,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="2D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -244,6 +247,7 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="3C"
+
                         android:textColor="@color/white" />
 
                     <TextView
@@ -255,7 +259,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="3D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -311,7 +316,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="4D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -352,10 +358,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        android:background="@color/colorPrimary"
+                        android:background="@color/blue"
+                        android:enabled="false"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="5C"
+                        android:text="CR"
                         android:textColor="@color/white" />
 
                     <TextView
@@ -367,7 +374,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="5D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -423,7 +431,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="6D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -479,7 +488,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="7D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -535,7 +545,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="8D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -591,7 +602,8 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="9D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -647,12 +659,14 @@
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="10D"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:weightSum="100">
 
                     <TextView
@@ -709,6 +723,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:weightSum="100">
 
                     <TextView
@@ -765,6 +780,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:weightSum="100">
 
                     <TextView
@@ -821,6 +837,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:weightSum="100">
 
                     <TextView
@@ -877,6 +894,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:weightSum="100">
 
                     <TextView

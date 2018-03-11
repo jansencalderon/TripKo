@@ -6,6 +6,7 @@ import android.util.Log;
 import com.hannesdorfmann.mosby.mvp.MvpNullObjectBasePresenter;
 import com.tripko.app.App;
 import com.tripko.app.Constants;
+import com.tripko.model.data.BankAccount;
 import com.tripko.model.data.Reservation;
 import com.tripko.model.response.BasicResponse;
 import com.tripko.model.response.ReservationResponse;
@@ -118,5 +119,9 @@ class TripDetailPresenter extends MvpNullObjectBasePresenter<TripDetailView> {
 
             }
         });
+    }
+
+    public BankAccount getBankAccount(Integer companyId) {
+        return realm.where(BankAccount.class).equalTo("BankAccountId", companyId).findFirst();
     }
 }
