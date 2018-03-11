@@ -203,7 +203,7 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
             @Override
             public void onClick(View view) {
                 dialog.dismiss();
-                presenter.onReserve(schedule.getScheduleId(), actualSeats, numberOfSeats, modeOfPayment, selectedDropOff.getDropOffId(), selectedPassengerType, totalFare+"");
+                presenter.onReserve(schedule.getScheduleId(), actualSeats, numberOfSeats, modeOfPayment, selectedDropOff.getDropOffId(), selectedPassengerType, totalFare + "");
             }
         });
         dialogBinding.setSchedule(schedule);
@@ -246,15 +246,18 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
 
 
             binding.seatsInfo.setVisibility(View.VISIBLE);
-            float fare = Float.parseFloat(selectedDropOff.getFare());
-            binding.fare.setText("PHP " + fare);
+
             binding.seatsCount.setText(numberOfSeats + "");
             binding.seats.setText(actualSeats);
 
-            //fare computation
-            double discount = (fare * numberOfSeats) * passengerTypeDiscount;
-            totalFare = (fare * numberOfSeats) - discount;
-            binding.total.setText("PHP " + totalFare);
+            if(selectedDropOff != null) {
+                float fare = Float.parseFloat(selectedDropOff.getFare());
+                binding.fare.setText("PHP " + fare);
+                //fare computation
+                double discount = (fare * numberOfSeats) * passengerTypeDiscount;
+                totalFare = (fare * numberOfSeats) - discount;
+                binding.total.setText("PHP " + totalFare);
+            }
         }
     }
 
