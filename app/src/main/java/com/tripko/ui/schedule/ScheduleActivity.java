@@ -90,7 +90,7 @@ public class ScheduleActivity extends MvpActivity<ScheduleView, SchedulePresente
         this.schedule = schedule;
         binding.setSchedule(schedule);
         String seatsTaken = "";
-        if(schedule.getSeats_taken() != null || !schedule.getSeats_taken().equals("")){
+        if(schedule.getSeats_taken() != null){
             seatsTaken = schedule.getSeats_taken();
         }
         SeatsAdapter seatsAdapter = new SeatsAdapter(Arrays.asList(seatsTaken.split(",")));
