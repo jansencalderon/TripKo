@@ -156,23 +156,23 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
 
         switch (reservation.getStatus()) {
             case "R":
-                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.orange));
+                binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.orange));
                 binding.reason.setVisibility(View.GONE);
                 break;
             case "P":
-                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.blue));
+                binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.blue));
                 binding.reason.setVisibility(View.GONE);
                 break;
             case "A":
-                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.greenSuccess));
+                binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.greenSuccess));
                 binding.reason.setVisibility(View.GONE);
                 break;
             case "D":
-                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.redFailed));
+                binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.redFailed));
                 binding.reason.setVisibility(View.VISIBLE);
                 break;
             default:
-                binding.status.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.redFailed));
+                binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.redFailed));
                 binding.reason.setVisibility(View.GONE);
                 break;
         }
