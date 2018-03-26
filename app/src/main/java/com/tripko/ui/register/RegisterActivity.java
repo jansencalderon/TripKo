@@ -44,7 +44,6 @@ public class RegisterActivity extends MvpViewStateActivity<RegisterView, Registe
         setSupportActionBar(binding.toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
     }

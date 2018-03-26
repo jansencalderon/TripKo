@@ -34,6 +34,7 @@
         <activity android:name=".profile.ProfileActivity" />
         <activity android:name=".ui.tripStatus.TripStatusActivity" />
         <activity android:name=".ui.trips.detail.TripDetailActivity" />
+        <activity android:name=".scheduleList.ScheduleListActivity" />
     </application>
 
 </manifest>

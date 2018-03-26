@@ -56,6 +56,10 @@ public class BookingActivity extends MvpActivity<BookingView, BookingPresenter> 
 
         int id = getIntent().getIntExtra(Constants.ID, -1);
         schedule = presenter.getSchedule(id);
+        if(schedule == null){
+            finish();
+            showAlert(getString(R.string.oops));
+        }
         binding.setSchedule(schedule);
         //binding.setView(getMvpView());
 

@@ -155,7 +155,7 @@ public class ProfilePresenter extends MvpNullObjectBasePresenter<ProfileView> {
     }
 
     public void changePassword(String currPass, String newPass, String confirmNewPass) {
-        if (confirmNewPass.length() < 6) {
+        if (confirmNewPass.length() <= 5) {
             getView().showAlert("Password must be minimum of 5 characters");
         } else if (newPass.equals(confirmNewPass)) {
             getView().startLoading();

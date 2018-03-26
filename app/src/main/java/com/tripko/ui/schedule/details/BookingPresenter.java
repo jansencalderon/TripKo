@@ -54,7 +54,7 @@ class BookingPresenter extends MvpNullObjectBasePresenter<BookingView> {
     }
 
     public Schedule getSchedule(int id) {
-        return realm.copyFromRealm(realm.where(Schedule.class).equalTo("scheduleId", id).findFirst());
+        return realm.where(Schedule.class).equalTo("scheduleId", id).findFirst();
     }
 
     public TempReservation tempReservation() {

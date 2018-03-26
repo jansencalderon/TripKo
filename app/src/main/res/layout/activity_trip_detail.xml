@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
         <variable
             name="view"
@@ -21,7 +21,7 @@
 
         <variable
             name="bankAccount"
-            type="com.tripko.model.data.BankAccount"/>
+            type="com.tripko.model.data.BankAccount" />
     </data>
 
     <LinearLayout
@@ -64,20 +64,38 @@
 
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
-                        app:cardCornerRadius="5dp"
                         android:layout_height="wrap_content"
+                        app:cardCornerRadius="5dp"
                         app:cardElevation="0dp">
 
-                        <TextView
-                            android:id="@+id/status"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/gray"
-                            android:padding="10dp"
-                            android:text='@{`Status: ` + StringUtils.toStatus(reservation.status)}'
-                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                            android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/status"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/gray"
+                                android:padding="10dp"
+                                android:text='@{`Status: ` + StringUtils.toStatus(reservation.status)}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/gray"
+                                android:padding="10dp"
+                                android:visibility="gone"
+                                android:id="@+id/reason"
+                                android:text='@{`Reason: ` + StringUtils.toStatus(reservation.reason)}'
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                                android:textColor="@color/white"
+                                android:textSize="18sp" />
+                        </LinearLayout>
                     </android.support.v7.widget.CardView>
 
 
@@ -212,43 +230,44 @@
                             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                             android:textColor="@color/darkGray" />
                     </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/bg_card"
-                    android:orientation="vertical"
-                    android:padding="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:text="Payment Details"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/darkGray"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_card"
+                        android:orientation="vertical"
+                        android:padding="10dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text='@{`Mode of Payment: ` + reservation.modePayment}'
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/darkGray" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:text="Payment Details"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                            android:textColor="@color/darkGray"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/bankAccount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="4dp"
-                        android:text=''
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                        android:textColor="@color/darkGray" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text='@{`Mode of Payment: ` + reservation.modePayment}'
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@color/darkGray" />
+
+                        <TextView
+                            android:id="@+id/bankAccount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="4dp"
+                            android:text=''
+                            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                            android:textColor="@color/darkGray" />
 
 
-                </LinearLayout>
+                    </LinearLayout>
 
                     <Button
                         android:id="@+id/upload"

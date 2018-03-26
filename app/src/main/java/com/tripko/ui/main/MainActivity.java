@@ -37,6 +37,7 @@ import com.tripko.model.data.DestTo;
 import com.tripko.model.data.Schedule;
 import com.tripko.model.data.User;
 import com.tripko.profile.ProfileActivity;
+import com.tripko.scheduleList.ScheduleListActivity;
 import com.tripko.ui.login.LoginActivity;
 import com.tripko.ui.schedule.ScheduleActivity;
 import com.tripko.ui.trips.TripsActivity;
@@ -149,6 +150,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         binding.navigationView.getMenu().getItem(0).setChecked(true);
         if (!user.getRole().equals("Passenger")) {
             binding.toolbar.setTitle("Bus Schedules");
+            //binding.filters.setVisibility(View.GONE);
+            //binding.frameLayout.setVisibility(View.VISIBLE);
             presenter.getSchedulesBusAssistant();
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -159,6 +162,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             binding.navigationView.getMenu().getItem(0).setChecked(true);
         } else {
             presenter.getSchedules("", "", "", "", "");
+            // binding.frameLayout.setVisibility(View.GONE);
+            //binding.filters.setVisibility(View.VISIBLE);
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -244,6 +249,104 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         this.destFromItems = destFromItems;
         this.destToItems = destToItems;
         this.companyItems = companyItems;
+
+
+        final ArrayAdapter<String> adapterFrom = new ArrayAdapter<>(getSupportActionBar().getThemedContext(), R.layout.spinner_list_style, destFromItems);
+        adapterFrom.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        binding.spinnerDestinationFrom.setAdapter(adapterFrom);
+        binding.spinnerDestinationFrom.setSelection(adapterFrom.getPosition(filterFromValue.trim()));
+        binding.spinnerDestinationFrom.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    Realm realm = Realm.getDefaultInstance();
+                    Integer fromId = realm.where(DestFrom.class).equalTo("terminalName", adapterFrom.getItem(position)).findFirst().getTerminalId();
+                    filterFrom = fromId + "";
+                    Log.e(TAG, "From ID " + fromId);
+                    realm.close();
+                }
+                filterFromValue = adapterFrom.getItem(position);
+                Log.e(TAG, "From ID Value" + filterFromValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        final ArrayAdapter<String> adapterTo = new ArrayAdapter<>(getSupportActionBar().getThemedContext(), R.layout.spinner_list_style, destToItems);
+        adapterTo.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        binding.spinnerDestinationTo.setAdapter(adapterTo);
+        binding.spinnerDestinationTo.setSelection(adapterTo.getPosition(filterToValue.trim()));
+        binding.spinnerDestinationTo.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position != 0) {
+                    Realm realm = Realm.getDefaultInstance();
+                    Integer toId = realm.where(DestTo.class).equalTo("terminalName", adapterTo.getItem(position)).findFirst().getTerminalId();
+                    filterTo = toId + "";
+                    Log.e(TAG, "To ID " + toId);
+                    realm.close();
+                }
+                filterToValue = adapterTo.getItem(position);
+                Log.e(TAG, "To ID Value" + filterToValue);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        binding.clearDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                binding.etBday.getText().clear();
+            }
+        });
+
+        binding.etBday.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Calendar newCalendar = Calendar.getInstance();
+                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        Calendar newDate = Calendar.getInstance();
+                        newDate.set(year, monthOfYear, dayOfMonth);
+                        binding.etBday.setText(dateFormatter.format(newDate.getTime()));
+                        filterDate = dateFormatter.format(newDate.getTime());
+                    }
+
+                }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+
+            }
+        });
+
+
+        binding.apply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterDate = binding.etBday.getText().toString();
+
+                //presenter.getSchedules(filterCompanyId + "", filterDate, filterFrom + "", filterTo + "", filterNoOfPassenger + "");
+                Intent i = new Intent(MainActivity.this, ScheduleListActivity.class);
+                i.putExtra("filterDate", filterDate);
+                i.putExtra("filterFrom", filterFrom);
+                i.putExtra("filterTo", filterTo);
+                i.putExtra("filterToValue", filterToValue);
+                i.putExtra("filterFromValue", filterFromValue);
+
+                Log.e(TAG, "Filter Date "+ filterDate);
+                Log.e(TAG, "Filter From "+ filterFromValue);
+                Log.e(TAG, "Filter To "+ filterToValue);
+                startActivity(i);
+            }
+        });
+
     }
 
 
@@ -261,7 +364,7 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         if (App.getUser().getRole().equals("Passenger")) {
-            getMenuInflater().inflate(R.menu.filter, menu);
+            // getMenuInflater().inflate(R.menu.filter, menu);
         }
         return true;
     }
@@ -403,7 +506,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             @Override
             public void onClick(View view) {
                 filterDate = dialogFilterBinding.etBday.getText().toString();
-
                 filterNoOfPassenger = dialogFilterBinding.filterNumber.getText().toString().trim();
                 presenter.getSchedules(filterCompanyId + "", filterDate, filterFrom + "", filterTo + "", filterNoOfPassenger + "");
                 dialog.dismiss();

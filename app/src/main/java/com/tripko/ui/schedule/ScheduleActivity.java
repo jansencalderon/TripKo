@@ -89,7 +89,11 @@ public class ScheduleActivity extends MvpActivity<ScheduleView, SchedulePresente
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
         binding.setSchedule(schedule);
-        SeatsAdapter seatsAdapter = new SeatsAdapter(Arrays.asList(schedule.getSeats_taken().split(",")));
+        String seatsTaken = "";
+        if(schedule.getSeats_taken() != null || !schedule.getSeats_taken().equals("")){
+            seatsTaken = schedule.getSeats_taken();
+        }
+        SeatsAdapter seatsAdapter = new SeatsAdapter(Arrays.asList(seatsTaken.split(",")));
         binding.recyclerView.setAdapter(seatsAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
