@@ -150,8 +150,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         binding.navigationView.getMenu().getItem(0).setChecked(true);
         if (!user.getRole().equals("Passenger")) {
             binding.toolbar.setTitle("Bus Schedules");
-            //binding.filters.setVisibility(View.GONE);
-            //binding.frameLayout.setVisibility(View.VISIBLE);
+            binding.filters.setVisibility(View.GONE);
+            binding.frameLayout.setVisibility(View.VISIBLE);
             presenter.getSchedulesBusAssistant();
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -162,8 +162,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             binding.navigationView.getMenu().getItem(0).setChecked(true);
         } else {
             presenter.getSchedules("", "", "", "", "");
-            // binding.frameLayout.setVisibility(View.GONE);
-            //binding.filters.setVisibility(View.VISIBLE);
+            binding.frameLayout.setVisibility(View.GONE);
+            binding.filters.setVisibility(View.VISIBLE);
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -172,7 +172,6 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             });
 
         }
-
         binding.recyclerView.setAdapter(mainListAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

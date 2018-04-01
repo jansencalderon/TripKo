@@ -90,7 +90,7 @@
                                 android:padding="10dp"
                                 android:visibility="gone"
                                 android:id="@+id/reason"
-                                android:text='@{`Reason: ` + StringUtils.toStatus(reservation.reason)}'
+                                android:text='@{`Reason: ` + reservation.reason}'
                                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                                 android:textColor="@color/white"
                                 android:textSize="18sp" />
