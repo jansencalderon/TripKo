@@ -55,132 +55,135 @@
                     <FrameLayout
                         android:id="@+id/frameLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone">
-
-                        <android.support.v7.widget.RecyclerView
-                            android:id="@+id/recyclerView"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            tools:listitem="@layout/item_schedule" />
+                        android:layout_height="wrap_content">
 
                         <include
                             android:id="@+id/resultLayout"
                             layout="@layout/no_result" />
+
+                        <LinearLayout
+                            android:id="@+id/filters"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="Travel Date"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <EditText
+                                android:id="@+id/et_bday"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="6dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@drawable/bg_card"
+                                android:clickable="true"
+                                android:focusable="false"
+                                android:hint="YYYY-MM-DD"
+                                android:padding="8dp"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:id="@+id/clearDate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="end"
+                                android:foreground="?selectableItemBackground"
+                                android:text="Clear Date"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+                                android:textColor="@color/lightGray" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="From"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_card"
+                                android:padding="6dp">
+
+                                <android.support.v7.widget.AppCompatSpinner
+                                    android:id="@+id/spinner_destination_from"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp" />
+                            </FrameLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:text="To"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:background="@drawable/bg_card"
+                                android:padding="6dp">
+
+                                <android.support.v7.widget.AppCompatSpinner
+                                    android:id="@+id/spinner_destination_to"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="6dp" />
+                            </FrameLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:gravity="end"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/cancel"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:background="@drawable/rounded_button_gray"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:text="cancel"
+                                    android:textColor="@color/white"
+                                    android:visibility="gone" />
+
+                                <Button
+                                    android:id="@+id/apply"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="30dp"
+                                    android:layout_margin="10dp"
+                                    android:background="@drawable/rounded_button_accent"
+                                    android:paddingLeft="20dp"
+                                    android:paddingRight="20dp"
+                                    android:text="apply"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
+                        </LinearLayout>
+
                     </FrameLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:listitem="@layout/item_schedule" />
 
                 </android.support.v4.widget.SwipeRefreshLayout>
 
-                <LinearLayout
-                    android:id="@+id/filters"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="Travel Date"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                    <EditText
-                        android:id="@+id/et_bday"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_card"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:hint="YYYY-MM-DD"
-                        android:padding="8dp"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/clearDate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:foreground="?selectableItemBackground"
-                        android:text="Clear Date"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                        android:textColor="@color/lightGray" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="From"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/bg_card"
-                        android:padding="6dp">
-
-                        <android.support.v7.widget.AppCompatSpinner
-                            android:id="@+id/spinner_destination_from"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp" />
-                    </FrameLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="To"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:background="@drawable/bg_card"
-                        android:padding="6dp">
-
-                        <android.support.v7.widget.AppCompatSpinner
-                            android:id="@+id/spinner_destination_to"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp" />
-                    </FrameLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:visibility="gone"
-                            android:id="@+id/cancel"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@drawable/rounded_button_gray"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:text="cancel"
-                            android:textColor="@color/white" />
-
-                        <Button
-                            android:id="@+id/apply"
-                            android:layout_width="match_parent"
-                            android:layout_height="30dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/rounded_button_accent"
-                            android:paddingLeft="20dp"
-                            android:paddingRight="20dp"
-                            android:text="apply"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-                </LinearLayout>
             </LinearLayout>
         </android.support.design.widget.CoordinatorLayout>
 

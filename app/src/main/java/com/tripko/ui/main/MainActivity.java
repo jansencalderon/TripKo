@@ -24,7 +24,6 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.tripko.R;
 import com.tripko.app.App;
@@ -131,10 +130,10 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         // email.setText(user.getEmail());
         name.setText(user.getFirstName());
         Log.e(TAG, Constants.URL_IMAGE + user.getImage());
-        Glide.with(this)
+        /*Glide.with(this)
                 .load(Constants.URL_IMAGE + user.getImage())
                 .error(R.drawable.ic_user)
-                .into(circleImageView);
+                .into(circleImageView);*/
 
         if (binding.navigationView.getMenu().size() <= 0) {
             if (!user.getRole().equals("Passenger")) {
@@ -143,15 +142,12 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 binding.navigationView.inflateMenu(R.menu.activity_main_user);
             }
         }
-        Glide.with(this)
-                .load(Constants.URL_IMAGE + user.getImage())
-                .error(R.drawable.ic_user)
-                .into(circleImageView);
         binding.navigationView.getMenu().getItem(0).setChecked(true);
+
         if (!user.getRole().equals("Passenger")) {
             binding.toolbar.setTitle("Bus Schedules");
-            binding.filters.setVisibility(View.GONE);
-            binding.frameLayout.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.VISIBLE);
+            binding.frameLayout.setVisibility(View.GONE);
             presenter.getSchedulesBusAssistant();
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -162,8 +158,8 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
             binding.navigationView.getMenu().getItem(0).setChecked(true);
         } else {
             presenter.getSchedules("", "", "", "", "");
-            binding.frameLayout.setVisibility(View.GONE);
-            binding.filters.setVisibility(View.VISIBLE);
+            binding.frameLayout.setVisibility(View.VISIBLE);
+            binding.recyclerView.setVisibility(View.GONE);
             binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -339,9 +335,9 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
                 i.putExtra("filterToValue", filterToValue);
                 i.putExtra("filterFromValue", filterFromValue);
 
-                Log.e(TAG, "Filter Date "+ filterDate);
-                Log.e(TAG, "Filter From "+ filterFromValue);
-                Log.e(TAG, "Filter To "+ filterToValue);
+                Log.e(TAG, "Filter Date " + filterDate);
+                Log.e(TAG, "Filter From " + filterFromValue);
+                Log.e(TAG, "Filter To " + filterToValue);
                 startActivity(i);
             }
         });

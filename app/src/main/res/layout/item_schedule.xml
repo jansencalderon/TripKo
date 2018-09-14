@@ -48,6 +48,7 @@
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
+                    android:visibility="gone"
                     android:src="@drawable/ic_bus_line"
                     android:tint="@color/white" />
                 <LinearLayout

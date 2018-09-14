@@ -17,11 +17,13 @@
         <item
             android:id="@+id/team"
             android:checkable="false"
+            android:visible="false"
             android:icon="@drawable/ic_info"
             android:title="About Team" />
         <item
             android:id="@+id/about_team"
             android:checkable="false"
+            android:visible="false  "
             android:icon="@drawable/ic_info"
             android:title="About App" />
         <item

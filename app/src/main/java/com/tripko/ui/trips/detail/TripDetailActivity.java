@@ -5,20 +5,28 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.tripko.R;
 import com.tripko.app.Constants;
 import com.tripko.databinding.ActivityTripDetailBinding;
 import com.tripko.databinding.DialogDepositSlipBinding;
+import com.tripko.databinding.DialogTicketBinding;
 import com.tripko.model.data.BankAccount;
 import com.tripko.model.data.Reservation;
 
@@ -39,6 +47,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
     private Dialog dialog;
     String TAG = TripDetailActivity.class.getSimpleName();
     BankAccount bankAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +86,9 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
         progressDialog.setMessage("Please wait...");
         progressDialog.setCancelable(false);
 
-        switch (reservation.getSchedule().getCompany().getCompanyId()){
+        switch (reservation.getSchedule().getCompany().getCompanyId()) {
             case 5:
-                switch (reservation.getModePayment()){
+                switch (reservation.getModePayment()) {
                     case "BDO":
                         binding.bankAccount.setText("Acct No. : 1431328430");
                         break;
@@ -92,7 +101,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
                 }
                 break;
             case 6:
-                switch (reservation.getModePayment()){
+                switch (reservation.getModePayment()) {
                     case "BDO":
                         binding.bankAccount.setText("Acct No. : 1431328431");
                         break;
@@ -105,7 +114,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
                 }
                 break;
             case 7:
-                switch (reservation.getModePayment()){
+                switch (reservation.getModePayment()) {
                     case "BDO":
                         binding.bankAccount.setText("Acct No. : 1431328432");
                         break;
@@ -118,7 +127,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
                 }
                 break;
             case 8:
-                switch (reservation.getModePayment()){
+                switch (reservation.getModePayment()) {
                     case "BDO":
                         binding.bankAccount.setText("Acct No. : 1431328433");
                         break;
@@ -131,7 +140,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
                 }
                 break;
             case 9:
-                switch (reservation.getModePayment()){
+                switch (reservation.getModePayment()) {
                     case "BDO":
                         binding.bankAccount.setText("Acct No. : 1431328434");
                         break;
@@ -154,6 +163,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
             binding.upload.setVisibility(View.GONE);
         }
 
+        binding.refNo.setText("Reference No. : " + reservation.getReferenceNo());
         switch (reservation.getStatus()) {
             case "R":
                 binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.orange));
@@ -166,6 +176,7 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
             case "A":
                 binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.greenSuccess));
                 binding.reason.setVisibility(View.GONE);
+                binding.refNo.setText("Ticket No. : " + reservation.getReferenceNo());
                 break;
             case "D":
                 binding.statusBg.setBackgroundColor(ContextCompat.getColor(TripDetailActivity.this, R.color.redFailed));
@@ -181,8 +192,6 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
     }
 
     private void showDialogUploadPic() {
-
-
         dialogBinding.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,16 +245,17 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
 
             @Override
             public void onImagePicked(File imageFile, EasyImage.ImageSource source, int type) {
-                if(imageFile.getPath().substring(imageFile.getPath().lastIndexOf(".")).equals(".jpg")
-                        ||imageFile.getPath().substring(imageFile.getPath().lastIndexOf(".")).equals(".jpeg")){
+                if (imageFile.getPath().substring(imageFile.getPath().lastIndexOf(".")).equals(".jpg")
+                        || imageFile.getPath().substring(imageFile.getPath().lastIndexOf(".")).equals(".jpeg")) {
 
                     userImage = imageFile;
                     Glide.with(TripDetailActivity.this)
                             .load(userImage)
                             .centerCrop()
+                            .dontAnimate()
                             .error(R.drawable.ic_user)
                             .into(dialogBinding.imageView);
-                }else {
+                } else {
                     showAlert("Only JPEG is allowed");
                 }
 
@@ -290,9 +300,46 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
             case android.R.id.home:
                 onBackPressed();
                 return true;
+            case R.id.ticket_action:
+                if (reservation.getStatus().equals("A")) {
+                    showTicket();
+                } else {
+                    showAlert("You can't view your ticket yet");
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void showTicket() {
+        final DialogTicketBinding dialogBinding = DataBindingUtil.inflate(
+                getLayoutInflater(),
+                R.layout.dialog_ticket,
+                null,
+                false);
+        String text = reservation.getReferenceNo()+""; // Whatever you need to encode in the QR code
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(text, BarcodeFormat.CODABAR, 300, 180);
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            dialogBinding.qr.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+        dialogBinding.setReservation(reservation);
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(dialogBinding.getRoot());
+        //dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_reservation, menu);
+        return true;
     }
 
     @Override
@@ -311,4 +358,6 @@ public class TripDetailActivity extends MvpActivity<TripDetailView, TripDetailPr
     public void stopLoading() {
         progressDialog.dismiss();
     }
+
+
 }

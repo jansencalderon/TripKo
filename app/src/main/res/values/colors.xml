@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#78909c</color>
     <color name="colorPrimaryDark">#4c5c64</color>
     <color name="colorAccent">#ff4343</color>
     <color name="colorAccentDark">#c96b4d</color>
 
+
+    <!-- <color name="colorPrimary">#734ff4</color>
+     <color name="colorPrimaryDark">#5e41c7</color>
+     <color name="colorAccent">#ff157e</color>
+     <color name="colorAccentDark">#e1399b</color>-->
 
     <color name="greenSuccess">#66bb6a</color>
     <color name="greenSuccessDark">#78a741</color>

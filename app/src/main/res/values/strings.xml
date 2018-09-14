@@ -92,4 +92,5 @@
     <string name="trip_finder">Trip Finder</string>
     <string name="please_waits">Please wait…</string>
     <string name="trip_status">Trip Status</string>
+    <string name="ticket">Ticket</string>
 </resources>
