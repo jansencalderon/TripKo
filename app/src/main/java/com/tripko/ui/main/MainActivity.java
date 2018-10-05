@@ -24,6 +24,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hannesdorfmann.mosby.mvp.MvpActivity;
 import com.tripko.R;
 import com.tripko.app.App;
@@ -130,10 +131,11 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         // email.setText(user.getEmail());
         name.setText(user.getFirstName());
         Log.e(TAG, Constants.URL_IMAGE + user.getImage());
-        /*Glide.with(this)
+        Glide.with(this)
                 .load(Constants.URL_IMAGE + user.getImage())
                 .error(R.drawable.ic_user)
-                .into(circleImageView);*/
+                .dontAnimate()
+                .into(circleImageView);
 
         if (binding.navigationView.getMenu().size() <= 0) {
             if (!user.getRole().equals("Passenger")) {

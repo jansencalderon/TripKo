@@ -139,10 +139,11 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
     @Override
     protected void onResume() {
         super.onResume();
-        /*Glide.with(this)
+        Glide.with(this)
                 .load(Constants.URL_IMAGE + user.getImage())
                 .error(R.drawable.ic_user)
-                .into(binding.userImage);*/
+                .dontAnimate()
+                .into(binding.userImage);
     }
 
     /***
@@ -222,12 +223,13 @@ public class ProfileActivity extends MvpActivity<ProfileView, ProfilePresenter> 
             dialogUpdateProfilePic.setContentView(updateProfilePicBinding.getRoot());
         }
 
-        /*Glide.with(this)
+        Glide.with(this)
                 .load(Constants.URL_IMAGE + user.getImage())
                 .centerCrop()
                 .error(R.drawable.ic_user)
                 .placeholder(R.drawable.ic_user)
-                .into(updateProfilePicBinding.userImage);*/
+                .dontAnimate()
+                .into(updateProfilePicBinding.userImage);
         updateProfilePicBinding.userImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
