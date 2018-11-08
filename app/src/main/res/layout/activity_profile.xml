@@ -48,7 +48,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:onClick="@{()->view.onPhotoClicked()}"
-                        android:src="@drawable/jansen"
+                        android:src="@drawable/ic_user"
                         app:civ_circle_background_color="@color/darkGray" />
                 </FrameLayout>
 

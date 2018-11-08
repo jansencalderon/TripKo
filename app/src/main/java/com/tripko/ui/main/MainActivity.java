@@ -216,17 +216,19 @@ public class MainActivity extends MvpActivity<MainView, MainPresenter> implement
         if (App.getUser() == null) {
             return;
         }
-        if (schedules.size() <= 0) {
-            binding.resultLayout.noResultLayout.setVisibility(View.VISIBLE);
-            if (App.isPassenger()) {
-                binding.resultLayout.resultText.setText("Oops! No Result\nTry Clearing Filters");
-            } else {
-                binding.resultLayout.resultText.setText("Oops! No Assigned Bus Yet");
+        if (!App.isPassenger()) {
+            if (schedules.size() <= 0) {
+                binding.resultLayout.noResultLayout.setVisibility(View.VISIBLE);
+                if (App.isPassenger()) {
+                    binding.resultLayout.resultText.setText("Oops! No Result\nTry Clearing Filters");
+                } else {
+                    binding.resultLayout.resultText.setText("Oops! No Assigned Bus Yet");
+                }
+                binding.recyclerView.setVisibility(View.GONE);
+            } else{
+                binding.resultLayout.noResultLayout.setVisibility(View.GONE);
+                binding.recyclerView.setVisibility(View.VISIBLE);
             }
-            binding.recyclerView.setVisibility(View.GONE);
-        } else {
-            binding.resultLayout.noResultLayout.setVisibility(View.GONE);
-            binding.recyclerView.setVisibility(View.VISIBLE);
         }
         mainListAdapter.setList(schedules);
     }
